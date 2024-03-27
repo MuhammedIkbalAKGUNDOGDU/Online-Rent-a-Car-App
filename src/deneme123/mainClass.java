@@ -8,6 +8,7 @@ public class mainClass {
 		System.out.println("deneme3");
 		System.out.println("deneme4");
 		System.out.println("deneme6");
+		System.out.println("deneme7");
 	}
 
 }
