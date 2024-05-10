@@ -11,6 +11,10 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import blackCar from "../assets/icons/blackCar.png";
+import pinkCar from "../assets/icons/pinkCar.png";
+import orangeCar from "../assets/icons/orangeCar.png";
+import car from "../assets/icons/car.png";
 
 export default {
   play,
@@ -26,4 +30,8 @@ export default {
   logout,
   eyeHide,
   eye,
+  orangeCar,
+  pinkCar,
+  blackCar,
+  car,
 };

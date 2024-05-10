@@ -42,6 +42,7 @@ const SignUp = () => {
             handlePress={() => router.push("/home")}
             containerStyles="mt-7"
             isLoading={isSubmitting}
+            
           />
           <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">

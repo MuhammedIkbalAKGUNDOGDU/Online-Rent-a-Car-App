@@ -3,6 +3,7 @@ import React from 'react'
 import { Tabs , Redirect } from 'expo-router'
 
 import { icons } from '../../constants'
+import { images } from '../../constants'
 
 
 const TabIcon = ({ icon, color, name, focused}) =>{
