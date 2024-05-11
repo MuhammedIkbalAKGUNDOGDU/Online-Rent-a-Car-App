@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import HireModal from '../components/HireModal'; // HireModal bileşenini içe aktarın
+import { router } from 'expo-router';
+import marker from './(tabs)/home' ;
 
 
-const MapSelection = ({ marker }) => {
+const MapSelection = () => {
   const [selectedCoordinate, setSelectedCoordinate] = useState(null);
-  const [hireModalVisible, setHireModalVisible] = useState(false);
-  marker={marker}
-  console.log(marker)
+  
   
   const handleMapPress = (event) => {
     setSelectedCoordinate(event.nativeEvent.coordinate);
@@ -17,7 +17,12 @@ const MapSelection = ({ marker }) => {
   const handleConfirmSelection = () => {
     if (selectedCoordinate) {
       if (isInsideIstanbul(selectedCoordinate)) {
-        setHireModalVisible(true); // HireModal'ı görünür yap
+        marker.xCoordinate = selectedCoordinate.latitude;
+        marker.yCoordinate = selectedCoordinate.longitude;
+        console.log(marker)
+        console.log(selectedCoordinate)
+        router.push("/home")
+
       } else {
         alert("Seçilen yer İstanbul sınırları içinde değil.");
       }
@@ -63,15 +68,6 @@ const MapSelection = ({ marker }) => {
       <TouchableOpacity style={styles.button} onPress={handleConfirmSelection}>
         <Text style={styles.buttonText}>Confirm Selection</Text>
       </TouchableOpacity>
-      {/* HireModal bileşenini göstermek için */}
-      {hireModalVisible && (
-        <HireModal
-          visible={hireModalVisible}
-          onClose={() => setHireModalVisible(false)}
-          marker={marker}
-          selectedCoordinate={selectedCoordinate}
-        />
-      )}
     </View>
   );
 };

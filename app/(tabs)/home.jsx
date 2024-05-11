@@ -8,7 +8,7 @@ const App = () => {
   const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-
+  
   // Örnek işaretler dizisi
   const initialMarkers = [
     {

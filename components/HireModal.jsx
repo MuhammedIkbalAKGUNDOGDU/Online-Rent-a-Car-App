@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
 import CustomButton from './CustomButton';
 import { router } from 'expo-router';
+import { Route } from 'expo-router/build/Route';
 
 const HireModal = ({ visible, onClose, marker }) => {
   const [startTime, setStartTime] = useState(null); // Hire modalının açıldığı zamanı tutmak için bir state
@@ -30,9 +31,7 @@ const HireModal = ({ visible, onClose, marker }) => {
         const currentTime = Date.now();
         const elapsedTimeInSeconds = Math.floor((currentTime - startTime) / 1000);
         setElapsedTime(elapsedTimeInSeconds);
-        if(elapsedTime % 60 == 0){
-          updateMileage(mileage+1)
-        }
+
       }, 1000);
     }
     return () => clearInterval(timer); // Komponent kaldırıldığında timer'ı temizle
@@ -69,7 +68,9 @@ const HireModal = ({ visible, onClose, marker }) => {
           <CustomButton
             title="Finish Hire"
             handlePress={() => {
+              marker.mileage = ~~(mileage + elapsedTime / 5);
               onClose();
+              router.push("/MapSelection",marker)
             }}
             containerStyles={{ marginTop: 10 }}
           />
