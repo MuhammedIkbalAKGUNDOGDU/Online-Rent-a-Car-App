@@ -11,6 +11,9 @@ const SignUp = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
+    name:"",
+    surname:"",
+    driverLicense:"",
   });
   const submit = async () => {
 
@@ -31,9 +34,31 @@ const SignUp = () => {
           />
 
           <FormField
+            title="Name"
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, email: e })}
+            otherStyles="mt-7"
+            keyboardType="numeric"
+          />
+
+          <FormField
+            title="SurName"
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, name: e })}
+            otherStyles="mt-7"
+            keyboardType="numeric"
+          />
+
+          <FormField
             title="Password"
             value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
+            handleChangeText={(e) => setForm({ ...form, surname: e })}
+            otherStyles="mt-7"
+          />
+          <FormField
+            title="Driver License ID"
+            value={form.password}
+            handleChangeText={(e) => setForm({ ...form, surname: e })}
             otherStyles="mt-7"
           />
 

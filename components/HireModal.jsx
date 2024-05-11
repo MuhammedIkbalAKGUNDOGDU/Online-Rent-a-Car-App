@@ -3,12 +3,23 @@ import { Modal, View, Text, TouchableOpacity } from 'react-native';
 import CustomButton from './CustomButton';
 import { router } from 'expo-router';
 import { Route } from 'expo-router/build/Route';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const HireModal = ({ visible, onClose, marker }) => {
   const [startTime, setStartTime] = useState(null); // Hire modalının açıldığı zamanı tutmak için bir state
   const [elapsedTime, setElapsedTime] = useState(0); // Geçen zamanı tutmak için bir state
   const [mileage, setMileage] = useState(0); // Mileage değerini tutmak için bir state
+  
 
+const saveMarkerToStorage = async (marker1) => {
+  try {
+    await AsyncStorage.setItem('marker', JSON.stringify(marker1));
+    console.log('Marker kaydedildi:', marker1);
+  } catch (error) {
+    console.error('1234 Hata:', error);
+  }
+};
   useEffect(() => {
     if (marker) {
       setMileage(marker.mileage); // Marker değiştiğinde mileage değerini güncelle
@@ -70,6 +81,7 @@ const HireModal = ({ visible, onClose, marker }) => {
             handlePress={() => {
               marker.mileage = ~~(mileage + elapsedTime / 5);
               onClose();
+              saveMarkerToStorage(marker)
               router.push("/MapSelection",marker)
             }}
             containerStyles={{ marginTop: 10 }}

@@ -21,6 +21,10 @@ const CustomModal = ({ visible, onClose, marker }) => {
             setHireModalVisible(true); // Yeni modalı görünür yap
             onClose(); // Eski modalı kapat
           };
+
+          const reportCrash = () => {
+            onClose(); // Eski modalı kapat
+          };
   return (
     <>
     <Modal
@@ -43,6 +47,11 @@ const CustomModal = ({ visible, onClose, marker }) => {
             title="Hire"
             handlePress={handleHirePress}
             containerStyles="mt-7"
+          /> 
+          <CustomButton
+            title="Report Crash"
+            handlePress={reportCrash}
+            containerStyles="mt-7 bg-red-100"
           /> 
           {/* Diğer bilgileri buraya ekleyin */}
         </View>

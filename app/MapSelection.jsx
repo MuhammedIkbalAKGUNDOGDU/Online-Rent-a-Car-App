@@ -4,7 +4,24 @@ import MapView, { Marker } from 'react-native-maps';
 import HireModal from '../components/HireModal'; // HireModal bileşenini içe aktarın
 import { router } from 'expo-router';
 import marker from './(tabs)/home' ;
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+const getMarkerFromStorage = async () => {
+  try {
+    const marker = await AsyncStorage.getItem('marker');
+    if (marker !== null) {
+      console.log('Marker:', JSON.parse(marker));
+      return JSON.parse(marker);
+    } else {
+      console.log('Marker bulunamadı.');
+      return null;
+    }
+  } catch (error) {
+    console.error('Hata:', error);
+    return null;
+  }
+};
 
 const MapSelection = () => {
   const [selectedCoordinate, setSelectedCoordinate] = useState(null);
@@ -14,20 +31,30 @@ const MapSelection = () => {
     setSelectedCoordinate(event.nativeEvent.coordinate);
   };
 
-  const handleConfirmSelection = () => {
+  const handleConfirmSelection = async () => {
     if (selectedCoordinate) {
       if (isInsideIstanbul(selectedCoordinate)) {
-        marker.xCoordinate = selectedCoordinate.latitude;
-        marker.yCoordinate = selectedCoordinate.longitude;
-        console.log(marker)
-        console.log(selectedCoordinate)
-        router.push("/home")
-
+        const storedMarker = await getMarkerFromStorage();
+        if (storedMarker) {
+          storedMarker.xCoordinate = selectedCoordinate.latitude;
+          storedMarker.yCoordinate = selectedCoordinate.longitude;
+          console.log("")
+          console.log("stored ve select")
+          console.log(storedMarker);
+          console.log(selectedCoordinate);
+          console.log("")
+          console.log("")
+          router.push("/home");
+          //burada databaseye yeni car nesnesini yollayacagım
+        } else {
+          console.log("Kayıtlı marker bulunamadı.");
+        }
       } else {
         alert("Seçilen yer İstanbul sınırları içinde değil.");
       }
     }
   };
+  
 
   const isInsideIstanbul = (coordinate) => {
     // İstanbul sınırlarını belirleyen koordinat aralığı
