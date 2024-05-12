@@ -80,9 +80,12 @@ const saveMarkerToStorage = async (marker1) => {
             title="Finish Hire"
             handlePress={() => {
               marker.mileage = ~~(mileage + elapsedTime / 5);
-              onClose();
+              console.log("marker.mileage burada hire modaldayız ste")
+              console.log(marker.mileage)
               saveMarkerToStorage(marker)
+              onClose();
               router.push("/MapSelection",marker)
+
             }}
             containerStyles={{ marginTop: 10 }}
           />

@@ -8,13 +8,33 @@ const App = () => {
   const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   useEffect(() => {
     const fetchMarkers = async () => {
       try {
-        const response = await fetch('http://spring-boot-server-url/api/cars');
-        const data = await response.json();
-        setMarkers(data);
+        const response = await fetch('http://192.168.1.4:8080/admin/allCar');
+        const responseData = await response.json();
+        if (responseData.isSuccess) {
+          const markersData = responseData.data.map(item => ({
+            id: item.carId,
+            carType: item.type,
+            mileage: item.carKilometer,
+            xCoordinate: parseFloat(item.y),
+            yCoordinate: parseFloat(item.x),
+            statue: item.statue,
+            previousDriver: item.previousDriver,
+            amountOfFuel: item.amountOfFuel,
+            lastServiceDate: item.lastServiceDateMonth, // Assuming the date format is 'MM-DD'
+            isRented: item.isRented,
+          }));
+          console.log('markers:', markers);
+          console.log('markersData:', markersData);
+          setMarkers(markersData);
+
+        } else {
+          console.error('Error fetching markers:', responseData.message);
+          
+        }
       } catch (error) {
         console.error('Error fetching markers:', error);
       }
@@ -22,6 +42,7 @@ const App = () => {
 
     fetchMarkers();
   }, []);
+
 
   const getMarkerIcon = (statue) => {
     switch (statue) {
@@ -55,7 +76,7 @@ const App = () => {
         {markers.map(marker => (
           <Marker
             key={marker.id}
-            title={marker.carType}
+            title={marker.type}
             description={`Mileage: ${marker.mileage}, 
                           Previous Driver: ${marker.previousDriver}, 
                           Amount of Fuel: ${marker.amountOfFuel}, 
@@ -67,9 +88,9 @@ const App = () => {
             }}
             onPress={() => handleMarkerPress(marker)}
           >
-             <Image
-               source={getMarkerIcon(marker.statue)}
-               style={{ width: 32, height: 32 }}
+            <Image
+              source={getMarkerIcon(marker.statue)}
+              style={{ width: 32, height: 32 }}
             />
           </Marker>
         ))}
