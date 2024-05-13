@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
+import { View, Text,Image  } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
+import { images } from '../../constants'
 
 const FAS = () => {
   return (
@@ -16,9 +17,13 @@ const FAS = () => {
       <Text>You can contact with us at this situation with  <Link className ="text-secondary" href = "mailto:muhammedikbalcmp@gmail.com?subject=Wrong Register&body=Mesaj metni">Muhammed İkbal AKGÜNDOĞDU</Link></Text>
       <Text></Text>
       <Text></Text>
+      <View className="w-full justify-top items-center">
+      <Image className=" w-[115px] h-[150px]" source={images.Algotur} resizeMode='contain'/>
       <Text></Text>
       <Text></Text>
-      <Text>Have a nice day...</Text>
+      <Text>  Have a nice day...</Text>
+      </View>
+      
     </View>
   )
 }
