@@ -39,7 +39,7 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchMarkers();
-    }, 10000);
+    }, 5000);
   
     return () => clearInterval(interval);
   }, []);

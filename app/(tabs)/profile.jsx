@@ -14,33 +14,38 @@ const ProfileScreen = () => {
     amount: ''
   });
 
-  
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const telNumber = await getMarkerFromStorage();
-        const response = await fetch(`http://192.168.91.138:8080/api/userInfo/${telNumber}`);
-        const responseData = await response.json();
-        if (responseData.isSuccess) {
-          setUserData({  
-            name: responseData.data.name,
-            surname: responseData.data.surname,
-            telNumber: responseData.data.telNumber,
-            money: responseData.data.money,
-            drivingPoint: responseData.data.drivingPoint,
-            drivingLicense: responseData.data.drivingLicense
-          });
-        } else {
-          console.error('Error fetching user data:', responseData.message);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+
+  const fetchUserData = async () => {
+    try {
+      const telNumber = await getMarkerFromStorage();
+      const response = await fetch(`http://192.168.91.138:8080/api/userInfo/${telNumber}`);
+      const responseData = await response.json();
+      if (responseData.isSuccess) {
+        setUserData({  
+          name: responseData.data.name,
+          surname: responseData.data.surname,
+          telNumber: responseData.data.telNumber,
+          money: responseData.data.money,
+          drivingPoint: responseData.data.drivingPoint,
+          drivingLicense: responseData.data.drivingLicense
+        });
+      } else {
+        console.error('Error fetching user data:', responseData.message);
       }
-    };
-
-    fetchUserData();
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchUserData();
+    }, 5000);
+  
+    return () => clearInterval(interval);
   }, []);
+
 
   const getMarkerFromStorage = async () => {
     try {
@@ -72,7 +77,7 @@ const ProfileScreen = () => {
         body: JSON.stringify({
           
           amountOfPaymentDTO: {
-            amountOfPayment: parseFloat(formValues.amount)
+            amountOfPayment: parseFloat(formValues.amount)+userData.money
           },
           userDTO: {
             telNumber: telNumber1 // Assuming you have userData from somewhere
