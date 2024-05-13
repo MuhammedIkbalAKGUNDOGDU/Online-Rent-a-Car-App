@@ -145,6 +145,7 @@ const ProfileScreen = () => {
           <CustomButton
             title="Add Money"
             handlePress={handleAddMoney}
+            
           />
         </View>
       </ScrollView>

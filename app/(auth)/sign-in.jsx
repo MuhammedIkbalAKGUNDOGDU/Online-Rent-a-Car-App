@@ -30,6 +30,8 @@ const SignIn = () => {
         }
       }, [form.phoneNumber]);
 
+      
+
   const submit = async () => {
     // Formu gönderme işlemi başlat
     setSubmitting(true);
@@ -41,8 +43,7 @@ const SignIn = () => {
         Alert.alert("Error", "Please fill in all fields");
         return;
       }
-  
-      // Backend ile giriş bilgilerini kontrol et
+      // Backend ile giriş bilgilerini kontrol et  
       const response = await fetch('http://192.168.91.138:8080/api/loginUser', {
         method: 'POST',
         headers: {

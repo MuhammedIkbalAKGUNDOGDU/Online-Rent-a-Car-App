@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 const FAS = () => {
   return (
@@ -12,7 +13,12 @@ const FAS = () => {
       <Text></Text>
       <Text>Why i cant see my informations in profile screen and pay money to my account?</Text>
       <Text>Because you can enter your informations at wrong type or design or your informations cant include unvalid characters</Text>
-      <Text>You can contact with us at this situation with muhammedikbalcmp@gmail.com</Text>
+      <Text>You can contact with us at this situation with  <Link className ="text-secondary" href = "mailto:muhammedikbalcmp@gmail.com?subject=Wrong Register&body=Mesaj metni">Muhammed İkbal AKGÜNDOĞDU</Link></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text>Have a nice day...</Text>
     </View>
   )
 }

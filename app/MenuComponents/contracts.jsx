@@ -5,6 +5,11 @@ const contract = () => {
   return (
     <View>
       <Text>In our database we can reach your personal information to give you a better service all users that use this application accpet this rule.</Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text>Have a nice day...</Text>
     </View>
   )
 }

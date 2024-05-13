@@ -7,6 +7,11 @@ const cars = () => {
       <Text>We have 3 statue of Car : pink, orange and black</Text>
       <Text>Pink cars is most valuable car </Text>
       <Text>Black cars is less valuable car</Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text>Have a nice day...</Text>
     </View>
   )
 }
