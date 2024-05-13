@@ -12,20 +12,21 @@ const App = () => {
   useEffect(() => {
     const fetchMarkers = async () => {
       try {
-        const response = await fetch('http://192.168.1.4:8080/admin/allCar');
+        const response = await fetch('http://192.168.91.138:8080/admin/allCar');
         const responseData = await response.json();
         if (responseData.isSuccess) {
           const markersData = responseData.data.map(item => ({
-            id: item.carId,
-            carType: item.type,
-            mileage: item.carKilometer,
-            xCoordinate: parseFloat(item.y),
-            yCoordinate: parseFloat(item.x),
+            carId: item.carId,
+            type: item.type,
+            carKilometer: item.carKilometer,
+            x: parseFloat(item.y),
+            y: parseFloat(item.x),
             statue: item.statue,
             previousDriver: item.previousDriver,
             amountOfFuel: item.amountOfFuel,
-            lastServiceDate: item.lastServiceDateMonth, // Assuming the date format is 'MM-DD'
+            lastServiceDateMonth: item.lastServiceDateMonth, // Assuming the date format is 'MM-DD'
             isRented: item.isRented,
+            carPrice : item.carPrice,
           }));
           console.log('markers:', markers);
           console.log('markersData:', markersData);
@@ -44,16 +45,20 @@ const App = () => {
   }, []);
 
 
-  const getMarkerIcon = (statue) => {
-    switch (statue) {
-      case 1:
-        return icons.blackCar;
-      case 2:
-        return icons.orangeCar;
-      case 3:
-        return icons.pinkCar;
-      default:
-        return icons.car;
+  const getMarkerIcon = (statue,isRented) => {
+    if(isRented){
+      return icons.carCrash;
+    }else{
+      switch (statue) {
+        case 1:
+          return icons.blackCar;
+        case 2:
+          return icons.orangeCar;
+        case 3:
+          return icons.pinkCar;
+        default:
+          return icons.car;
+      }
     }
   };
 
@@ -75,21 +80,21 @@ const App = () => {
       >
         {markers.map(marker => (
           <Marker
-            key={marker.id}
+            key={marker.carId}
             title={marker.type}
-            description={`Mileage: ${marker.mileage}, 
+            description={`Mileage: ${marker.carKilometer}, 
                           Previous Driver: ${marker.previousDriver}, 
                           Amount of Fuel: ${marker.amountOfFuel}, 
-                          Last Service Date: ${marker.lastServiceDate}, 
+                          Last Service Date: ${marker.lastServiceDateMonth}, 
                           Is Rented: ${marker.isRented}`}
             coordinate={{
-              latitude: marker.xCoordinate,
-              longitude: marker.yCoordinate,
+              latitude: marker.x,
+              longitude: marker.y,
             }}
             onPress={() => handleMarkerPress(marker)}
           >
             <Image
-              source={getMarkerIcon(marker.statue)}
+              source={getMarkerIcon(marker.statue,marker.isRented)}
               style={{ width: 32, height: 32 }}
             />
           </Marker>

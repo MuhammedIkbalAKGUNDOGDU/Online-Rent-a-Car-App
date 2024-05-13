@@ -6,23 +6,26 @@ import CustomButton from '../components/CustomButton';
 const homeAdmin = () => {
 
   const [form, setForm] = useState({
+    type: "",
     fuel: "",
-    id: "",
   });
   
   const [control, setControl] = useState({
-    id: "",
+    type: "",
     date: "",
   });
 
   const [discount, setDiscount] = useState({
-    id: "",
+    type: "",
     amount: "",
   });
 
   const [upadtePrice, setUpadtePrice] = useState({
-    id: "",
+    type: "",
     amount: "",
+  });
+  const [repairCar, setrepairCar] = useState({
+    type: "",
   });
 
   const [carAdd, setCarAdd] = useState({
@@ -43,7 +46,7 @@ const homeAdmin = () => {
 
   const handleDeleteCar = async () => {
     try {
-      const response = await fetch(`http://192.168.1.4:8080/admin/deleteCar/${deleteCar.id}`, {
+      const response = await fetch(`http://192.168.91.138/admin/deleteCar/${deleteCar.id}`, {
         method: 'DELETE',
       });
       const data = await response.json();
@@ -60,7 +63,7 @@ const homeAdmin = () => {
 
   const handleAddNewCar = async () => {
     try {
-      const response = await fetch('http://192.168.1.4:8080/admin/saveCar', {
+      const response = await fetch('http://192.168.91.138/admin/saveCar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,6 +88,126 @@ const homeAdmin = () => {
     }
   };
 
+  const handleFuelProcess = async () => {
+    try {
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar1`, { //updateCar fuel islemi
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: form.type, // Güncellenecek aracın ID'si
+          amountOfFuel: form.fuel, // Yeni yakıt miktarı
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert('Success', data.message);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      console.error('Error updating fuel:', error);
+      Alert.alert('Error', 'An error occurred while updating fuel. Please try again later.');
+    }
+  };
+
+  const handleDiscountProcess = async () => {
+    try {
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: discount.type, // Güncellenecek aracın ID'si
+          carPrice: discount.amount, // Yeni yakıt miktarı
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert('Success', data.message);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      console.error('Error updating fuel:', error);
+      Alert.alert('Error', 'An error occurred while updating fuel. Please try again later.');
+    }
+  };
+
+  const handlePriceProcess = async () => {
+    try {
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar3`, { //updateCar fuel islemi
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: upadtePrice.type, // Güncellenecek aracın ID'si
+          carPrice: upadtePrice.amount, // Yeni yakıt miktarı
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert('Success', data.message);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      console.error('Error updating fuel:', error);
+      Alert.alert('Error', 'An error occurred while updating fuel. Please try again later.');
+    }
+  };
+
+  const handleDateProcess = async () => {
+    try {
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: control.type, // Güncellenecek aracın ID'si
+          lastServiceDateMonth: control.date, // Yeni yakıt miktarı
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert('Success', data.message);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      console.error('Error updating fuel:', error);
+      Alert.alert('Error', 'An error occurred while updating fuel. Please try again later.');
+    }
+  };
+
+  const handleRepairProcess = async () => {
+    try {
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar5`, { //updateCar fuel islemi
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: repairCar.type, 
+          isRented : false, 
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert('Success', data.message);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      console.error('Error updating fuel:', error);
+      Alert.alert('Error', 'An error occurred while updating fuel. Please try again later.');
+    }
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: '1000%' }} >
@@ -92,30 +215,29 @@ const homeAdmin = () => {
           <Text>Welcome Admin</Text>
 
           <FormField
-            title="Car ID"
-            value={form.phoneNumber}
-            handleChangeText={(e) => setForm({ ...form, id: e })}
+            title="Car type"
+            value={form.type}
+            handleChangeText={(e) => setForm({ ...form, type: e })}
             otherStyles="mt-7"
-            keyboardType="numeric"
           />
           <FormField
             title="Fuel Amount"
-            value={form.password}
+            value={form.fuel}
             handleChangeText={(e) => setForm({ ...form, fuel: e })}
             otherStyles="mt-7"
           />
            <CustomButton
             title="Fuel Process"
-            handlePress={""} //yapilacak islem
+            handlePress={handleFuelProcess} //yapilacak islem
             containerStyles="mt-7" //--------------------------------------------------------
           /> 
           
           <FormField
-            title="Car ID"
-            value={control.id}
-            handleChangeText={(e) => setControl({ ...control, id: e })}
+            title="Car Type"
+            value={control.type}
+            handleChangeText={(e) => setControl({ ...control, type: e })}
             otherStyles="mt-7"
-            keyboardType="numeric"
+            
           />
           <FormField
             title="Control Date"
@@ -125,45 +247,47 @@ const homeAdmin = () => {
           />
            <CustomButton
             title="Control Process"
-            handlePress={""} //yapilacak islem
+            handlePress={handleDateProcess} //yapilacak islem
             containerStyles="mt-7"
           />
 
           <FormField
-            title="Car ID"
-            value={discount.id}
-            handleChangeText={(e) => setDiscount({ ...discount, id: e })}
+            title="Car Type"
+            value={discount.type}
+            handleChangeText={(e) => setDiscount({ ...discount, type: e })}
             otherStyles="mt-7"
-            keyboardType="numeric"
+           
           />
           <FormField
             title="discount amount"
             value={discount.amount}
-            handleChangeText={(e) => setDiscount({ ...discount, date: e })}
+            handleChangeText={(e) => setDiscount({ ...discount, amount: e })}
             otherStyles="mt-7"
+            keyboardType="numeric"
           />
           <CustomButton
             title="Discount Process"
-            handlePress={""} //yapilacak islem
+            handlePress={handleDiscountProcess} //yapilacak islem
             containerStyles="mt-7"
           />
 
           <FormField
-            title="Car ID"
-            value={upadtePrice.id}
-            handleChangeText={(e) => setUpadtePrice({ ...upadtePrice, id: e })}
+            title="Car Type"
+            value={upadtePrice.type}
+            handleChangeText={(e) => setUpadtePrice({ ...upadtePrice, type: e })}
             otherStyles="mt-7"
-            keyboardType="numeric"
+            
           />
           <FormField
             title="Update Price amount"
             value={upadtePrice.amount}
-            handleChangeText={(e) => setUpadtePrice({ ...upadtePrice, date: e })}
+            handleChangeText={(e) => setUpadtePrice({ ...upadtePrice, amount: e })}
             otherStyles="mt-7"
+            keyboardType="numeric"
           />
           <CustomButton
             title="Update Price Process"
-            handlePress={""} //yapilacak islem
+            handlePress={handlePriceProcess} //yapilacak islem
             containerStyles="mt-7"
           />
 
@@ -223,6 +347,18 @@ const homeAdmin = () => {
             title="Delete Car"
             handlePress={handleDeleteCar} //yapilacak islem
             containerStyles="mt-7 bg-red-100"
+          />
+
+          <FormField 
+            title="Car type"
+            value={repairCar.type}
+            handleChangeText={(e) => setrepairCar({ ...repairCar, type: e })}
+            otherStyles="mt-7"
+          />
+            <CustomButton
+            title="Repair Car"
+            handlePress={handleRepairProcess} //yapilacak islem
+            containerStyles="mt-7 bg-green-100"
           />
         </View>
       </ScrollView>

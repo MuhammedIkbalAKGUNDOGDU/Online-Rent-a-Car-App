@@ -15,6 +15,7 @@ import blackCar from "../assets/icons/blackCar.png";
 import pinkCar from "../assets/icons/pinkCar.png";
 import orangeCar from "../assets/icons/orangeCar.png";
 import car from "../assets/icons/car.png";
+import carCrash from "../assets/icons/carCrash.png";
 
 export default {
   play,
@@ -34,4 +35,5 @@ export default {
   pinkCar,
   blackCar,
   car,
+  carCrash,
 };

@@ -22,7 +22,32 @@ const CustomModal = ({ visible, onClose, marker }) => {
             onClose(); // Eski modalı kapat
           };
 
-          const reportCrash = () => {
+          const reportCrash = async () => {
+            
+              try {
+                const response = await fetch('http://192.168.91.138:8080/admin/updateCar4', {
+                  method: 'PUT', // PUT metodu kullanılacak
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    type: marker.type,
+                    isRented: true // Kaza durumunda aracın kiralık durumu false olarak güncelleniyor
+                  })
+                });
+                const data = await response.json();
+                if (response.ok ) {
+                  console.log('İşlem başarılı:', data);
+                  // İsteğin başarıyla tamamlandığını kullanıcıya bildirebilirsiniz
+                } else {
+                  console.error('HTTP hatası:', response.status);
+                  // Hata durumunda kullanıcıya bir hata mesajı gösterebilirsiniz
+                }
+              } catch (error) {
+                console.error('İstek hatası:', error);
+                // Hata durumunda kullanıcıya bir hata mesajı gösterebilirsiniz
+              }
+            
             onClose(); // Eski modalı kapat
           };
   return (
@@ -40,8 +65,8 @@ const CustomModal = ({ visible, onClose, marker }) => {
       >
         <View className="bg-primary "style={{ padding: 20, borderRadius: 10 }}>
           {content}
-          <Text className="text-secondary text-xl font-pregular">Car Type: {marker?.carType}</Text>
-          <Text className="mb-5 text-secondary text-xl font-pregular">Mileage: {marker?.mileage}</Text>
+          <Text className="text-secondary text-xl font-pregular">Car Type: {marker?.type}</Text>
+          <Text className="mb-5 text-secondary text-xl font-pregular">Mileage: {marker?.carKilometer}</Text>
 
             <CustomButton
             title="Hire"

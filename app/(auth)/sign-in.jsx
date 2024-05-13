@@ -43,7 +43,7 @@ const SignIn = () => {
       }
   
       // Backend ile giriş bilgilerini kontrol et
-      const response = await fetch('http://192.168.1.4:8080/api/loginUser', {
+      const response = await fetch('http://192.168.91.138:8080/api/loginUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

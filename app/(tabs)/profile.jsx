@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../components/CustomButton";
+import FormField from "../../components/FormField";
 
 const ProfileScreen = () => {
   const [userData, setUserData] = useState(null); // State to hold user data
+
+  const [formValues, setFormValues] = useState({
+    creditCardNumber: '',
+    cvv: '',
+    amount: ''
+  });
+
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const telNumber = await getMarkerFromStorage();
-        console.log(telNumber)
-        const response = await fetch(`http://192.168.1.4:8080/api/userInfo/${telNumber}`);
+        const response = await fetch(`http://192.168.91.138:8080/api/userInfo/${telNumber}`);
         const responseData = await response.json();
         if (responseData.isSuccess) {
           setUserData({  
@@ -22,8 +31,6 @@ const ProfileScreen = () => {
             drivingPoint: responseData.data.drivingPoint,
             drivingLicense: responseData.data.drivingLicense
           });
-          console.log("asd"+userData.name)
-          console.log("as32d"+responseData.data.name)
         } else {
           console.error('Error fetching user data:', responseData.message);
         }
@@ -51,26 +58,94 @@ const ProfileScreen = () => {
     }
   };
 
+  const handleAddMoney = async () => {
+    try {
+      const telNumber1 = await getMarkerFromStorage();
+      console.log("amount"+formValues.amount)
+      console.log("cvv"+formValues.cvv)
+      console.log("number"+formValues.creditCardNumber)
+      const response = await fetch('http://192.168.91.138:8080/creditCard/addMoney', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          
+          amountOfPaymentDTO: {
+            amountOfPayment: parseFloat(formValues.amount)
+          },
+          userDTO: {
+            telNumber: telNumber1 // Assuming you have userData from somewhere
+          },
+          creditCardDTO: {
+            cardNumber: formValues.creditCardNumber,
+            cvv: formValues.cvv
+          }
+         
+        })
+      });
+
+      const responseData = await response.json();
+      if (responseData.isSuccess) {
+        Alert.alert('Success adding money:', responseData.message); // Başarı mesajını göster
+      } else {
+        console.error('Error adding money:', responseData.message);
+        Alert.alert('Error adding money:', responseData.message); // Hata mesajını göster
+      }
+    } catch (error) {
+      console.error('Error adding money:', error);
+    }
+  };
+
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <ScrollView  contentContainerStyle={{ height: '100%' }}>
-    <View className="w-full justify-top  min-h-[85vh] px-4 my-6"  style={{ flex: 1, alignItems: 'center' }}>
-    {userData ? ( // Check if userData is available
-      <>
-        <Text className="text-2xl text-secondary-100"> Name:   {userData.name}</Text>
-        <Text className="text-2xl text-secondary-100"> Last Name:   {userData.surname}</Text>
-        <Text className="text-2xl text-secondary-100"> Driving License:   {userData.drivingLicense}</Text>
-        <Text className="text-2xl text-secondary-100"> Driving Point:   {userData.drivingPoint}</Text>
-        <Text className="text-2xl text-secondary-100"> Money:   {userData.money} $</Text>
-      </>
-    ) : (
-      <Text>Loading...</Text>
-    )}
-    
-  </View>
-  </ScrollView>
-  </SafeAreaView>
+    <SafeAreaView className = "bg-primary"style={{ flex: 1 }}>
+      <ScrollView>
+        <View style={{ justifyContent: 'center', alignItems: 'center', minHeight: '85vh', paddingHorizontal: 4, marginTop: 6 }}>
+          {userData ? (
+            <>
+              <Text className="text-secondary-100" style={{ fontSize: 24 }}> Name:   {userData.name}</Text>
+              <Text className="text-secondary-100" style={{ fontSize: 24 }}> Last Name:   {userData.surname}</Text>
+              <Text className="text-secondary-100" style={{ fontSize: 24 }}> Driving License:   {userData.drivingLicense}</Text>
+              <Text className="text-secondary-100" style={{ fontSize: 24 }}> Driving Point:   {userData.drivingPoint}</Text>
+              <Text className="text-secondary-100" style={{ fontSize: 24 }}> Money:   {userData.money} $</Text>
+            </>
+          ) : (
+            <Text>Loading...</Text>
+          )}
+          <FormField
+            title="Credit Card Number"
+            value={formValues.creditCardNumber}
+            placeholder="Enter your credit card number"
+            handleChangeText={(text) => setFormValues({ ...formValues, creditCardNumber: text })}
+            otherStyles="mt-7"
+            keyboardType="numeric"
+          />
+          <FormField
+            title="CVV"
+            value={formValues.cvv}
+            placeholder="Enter your CVV"
+            handleChangeText={(text) => setFormValues({ ...formValues, cvv: text })}
+            otherStyles="mt-7"
+            keyboardType="numeric"
+          />
+          <FormField
+            title="Amount"
+            value={formValues.amount}
+            placeholder="Enter the amount"
+            handleChangeText={(text) => setFormValues({ ...formValues, amount: text })}
+            otherStyles="mt-7"
+            keyboardType="numeric"
+          />
+          
+          <CustomButton
+            title="Add Money"
+            handlePress={handleAddMoney}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
+  
 };
 
 export default ProfileScreen;

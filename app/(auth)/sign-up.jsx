@@ -50,7 +50,7 @@ const SignUp = () => {
       }
 
       // Backend ile kayıt işlemini gerçekleştir
-      const response = await fetch('http://192.168.1.4:8080/api/saveUser', {
+      const response = await fetch('http://192.168.91.138:8080/api/saveUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
