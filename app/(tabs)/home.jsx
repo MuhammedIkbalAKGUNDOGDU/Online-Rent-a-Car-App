@@ -9,39 +9,39 @@ const App = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    const fetchMarkers = async () => {
-      try {
-        const response = await fetch('http://192.168.91.138:8080/admin/allCar');
-        const responseData = await response.json();
-        if (responseData.isSuccess) {
-          const markersData = responseData.data.map(item => ({
-            carId: item.carId,
-            type: item.type,
-            carKilometer: item.carKilometer,
-            x: parseFloat(item.y),
-            y: parseFloat(item.x),
-            statue: item.statue,
-            previousDriver: item.previousDriver,
-            amountOfFuel: item.amountOfFuel,
-            lastServiceDateMonth: item.lastServiceDateMonth, // Assuming the date format is 'MM-DD'
-            isRented: item.isRented,
-            carPrice : item.carPrice,
-          }));
-          console.log('markers:', markers);
-          console.log('markersData:', markersData);
-          setMarkers(markersData);
-
-        } else {
-          console.error('Error fetching markers:', responseData.message);
-          
-        }
-      } catch (error) {
-        console.error('Error fetching markers:', error);
+  const fetchMarkers = async () => {
+    try {
+      const response = await fetch('http://192.168.91.138:8080/admin/allCar');
+      const responseData = await response.json();
+      if (responseData.isSuccess) {
+        const markersData = responseData.data.map(item => ({
+          carId: item.carId,
+          type: item.type,
+          carKilometer: item.carKilometer,
+          x: parseFloat(item.y),
+          y: parseFloat(item.x),
+          statue: item.statue,
+          previousDriver: item.previousDriver,
+          amountOfFuel: item.amountOfFuel,
+          lastServiceDateMonth: item.lastServiceDateMonth, // Assuming the date format is 'MM-DD'
+          isRented: item.isRented,
+          carPrice : item.carPrice,
+        }));
+        setMarkers(markersData);
+      } else {
+        console.error('Error fetching markers:', responseData.message);
       }
-    };
-
-    fetchMarkers();
+    } catch (error) {
+      console.error('Error fetching markers:', error);
+    }
+  };
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchMarkers();
+    }, 10000);
+  
+    return () => clearInterval(interval);
   }, []);
 
 
