@@ -138,7 +138,7 @@ const homeAdmin = () => {
 
   const handlePriceProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar3`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ const homeAdmin = () => {
 
   const handleDateProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar3`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

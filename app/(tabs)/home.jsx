@@ -3,6 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Image } from 'react-native';
 import { icons } from '../../constants'; // constants dosyasından resimleri içe aktarın
 import CustomModal from '../../components/ChosonCarModal'; // CustomModal bileşenini içe aktarın
+import { images } from '../../constants'
 
 const App = () => {
   const [markers, setMarkers] = useState([]);
@@ -100,7 +101,7 @@ const App = () => {
           </Marker>
         ))}
       </MapView>
-      {/* CustomModal bileşenini çağırın */}
+      <Image source={images.Algotur} style={styles.image} resizeMode='contain'/>
       <CustomModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -113,6 +114,14 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  image: {
+    position: 'absolute',
+    top: 170,
+    left: 120,
+    right: 0,
+    bottom: 0,
+    width: 150,
   },
   map: {
     flex: 1,
