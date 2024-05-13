@@ -4,7 +4,9 @@ import React from 'react'
 const cars = () => {
   return (
     <View>
-      <Text>cars</Text>
+      <Text>We have 3 statue of Car : pink, orange and black</Text>
+      <Text>Pink cars is most valuable car </Text>
+      <Text>Black cars is less valuable car</Text>
     </View>
   )
 }

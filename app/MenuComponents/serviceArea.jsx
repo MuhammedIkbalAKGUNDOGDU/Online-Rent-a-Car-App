@@ -4,7 +4,7 @@ import React from 'react'
 const serviceArea = () => {
   return (
     <View>
-      <Text>serviceArea</Text>
+      <Text>We can give service in istanbul you cant take our can and park out of istanbul</Text>
     </View>
   )
 }
