@@ -19,7 +19,7 @@ const ProfileScreen = () => {
   const fetchUserData = async () => {
     try {
       const telNumber = await getMarkerFromStorage();
-      const response = await fetch(`http://192.168.91.138:8080/api/userInfo/${telNumber}`);
+      const response = await fetch(`http://192.168.159.138:8080/api/userInfo/${telNumber}`);
       const responseData = await response.json();
       if (responseData.isSuccess) {
         setUserData({  
@@ -69,7 +69,7 @@ const ProfileScreen = () => {
       console.log("amount"+formValues.amount)
       console.log("cvv"+formValues.cvv)
       console.log("number"+formValues.creditCardNumber)
-      const response = await fetch('http://192.168.91.138:8080/creditCard/addMoney', {
+      const response = await fetch('http://192.168.159.138:8080/creditCard/addMoney', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

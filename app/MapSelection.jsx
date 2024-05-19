@@ -55,10 +55,10 @@ const MapSelection = () => {
           storedMarker.y = selectedCoordinate.latitude;  
           try {
             const telNumber = await getMarker1FromStorage();
-            const response1 = await fetch(`http://192.168.91.138:8080/api/userInfo/${telNumber}`);
+            const response1 = await fetch(`http://192.168.159.138:8080/api/userInfo/${telNumber}`);
             const responseData1 = await response1.json();
             
-            const response = await fetch(`http://192.168.91.138:8080/admin/updateCarPayment/${responseData1.data.userId}`, {
+            const response = await fetch(`http://192.168.159.138:8080/admin/updateCarPayment/${responseData1.data.userId}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json; charset=UTF-8',
@@ -80,7 +80,7 @@ const MapSelection = () => {
               Alert.alert('Error', responseData.message);
             }
             /*try {
-      const response = await fetch('http://192.168.91.138/admin/saveCar', {
+      const response = await fetch('http://192.168.159.138/admin/saveCar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

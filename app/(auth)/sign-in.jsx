@@ -6,7 +6,7 @@ import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import CustomButton from "../../components/CustomButton";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import NetworkService from "../NetworkService";
 const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -44,7 +44,7 @@ const SignIn = () => {
         return;
       }
       // Backend ile giriş bilgilerini kontrol et  
-      const response = await fetch('http://192.168.91.138:8080/api/loginUser', {
+      const response = await fetch('http://192.168.159.138:8080/api/loginUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

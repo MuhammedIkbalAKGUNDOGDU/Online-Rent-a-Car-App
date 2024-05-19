@@ -46,7 +46,7 @@ const homeAdmin = () => {
 
   const handleDeleteCar = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138/admin/deleteCar/${deleteCar.id}`, {
+      const response = await fetch(`http://192.168.159.138/admin/deleteCar/${deleteCar.id}`, {
         method: 'DELETE',
       });
       const data = await response.json();
@@ -63,7 +63,7 @@ const homeAdmin = () => {
 
   const handleAddNewCar = async () => {
     try {
-      const response = await fetch('http://192.168.91.138/admin/saveCar', {
+      const response = await fetch('http://192.168.159.138/admin/saveCar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const homeAdmin = () => {
 
   const handleFuelProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar1`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.159.138:8080/admin/updateCar1`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const homeAdmin = () => {
 
   const handleDiscountProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.159.138:8080/admin/updateCar2`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ const homeAdmin = () => {
 
   const handlePriceProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar2`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.159.138:8080/admin/updateCar2`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ const homeAdmin = () => {
 
   const handleDateProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar3`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.159.138:8080/admin/updateCar3`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ const homeAdmin = () => {
 
   const handleRepairProcess = async () => {
     try {
-      const response = await fetch(`http://192.168.91.138:8080/admin/updateCar5`, { //updateCar fuel islemi
+      const response = await fetch(`http://192.168.159.138:8080/admin/updateCar5`, { //updateCar fuel islemi
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

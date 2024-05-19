@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchMarkers = async () => {
     try {
-      const response = await fetch('http://192.168.91.138:8080/admin/allCar');
+      const response = await fetch('http://192.168.159.138:8080/admin/allCar');
       const responseData = await response.json();
       if (responseData.isSuccess) {
         const markersData = responseData.data.map(item => ({
